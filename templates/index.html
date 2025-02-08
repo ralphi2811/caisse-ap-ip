@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal de Paiement Simulator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css" rel="stylesheet">
+    <style>
+        .terminal-container {
+            height: 500px;
+            background-color: black;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Simulateur de Terminal de Paiement Protocole Caisse (FRANCE)</h1>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Configuration Serveur -->
+                <div class="form-section">
+                    <h3>Configuration Serveur</h3>
+                    <form id="serverForm">
+                        <div class="mb-3">
+                            <label class="form-label">Port</label>
+                            <input type="number" class="form-control" id="serverPort" value="8888">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Type de Paiement</label>
+                            <select class="form-select" id="paymentType">
+                                <option value="cbcontact">CB Contact</option>
+                                <option value="cbcontactless">CB Sans Contact</option>
+                                <option value="amexcontact">AMEX Contact</option>
+                                <option value="amexcontactless">AMEX Sans Contact</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="failureMode">
+                                <label class="form-check-label">Mode Échec</label>
+                            </div>
+                        </div>
+                        <div class="mb-3" id="failureTypeContainer" style="display: none;">
+                            <label class="form-label">Type d'Échec</label>
+                            <select class="form-select" id="failureType">
+                                <option value="abandon">Abandon</option>
+                                <option value="timeout">Timeout</option>
+                                <option value="refused">Refusé</option>
+                                <option value="forbidden">Interdit</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Durée (secondes)</label>
+                            <input type="number" class="form-control" id="duration" value="3">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Démarrer le Serveur</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <!-- Terminal Serveur -->
+                <h3>Sortie Serveur</h3>
+                <div class="terminal-container" id="serverTerminal"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
