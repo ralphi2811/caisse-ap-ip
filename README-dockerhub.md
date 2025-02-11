@@ -1,10 +1,12 @@
 # Caisse AP IP - Simulateur de Terminal de Paiement
 
-Simulateur de terminal de paiement implémentant le protocole Caisse AP over IP, avec interface web de contrôle.
+Simulateur complet du protocole Caisse AP over IP comprenant :
+- Une simulation de caisse enregistreuse qui envoie les données de paiement
+- Une simulation de Terminal de Paiement Électronique (TPE) qui traite la demande et simule la réponse bancaire
 
 ## Fonctionnalités
 
-- Simulation d'un terminal de paiement
+- Simulation complète du processus de paiement (caisse → TPE → banque)
 - Interface web pour le contrôle du serveur
 - Support des paiements CB (contact/sans contact)
 - Simulation de différents scénarios (succès, échec, timeout)

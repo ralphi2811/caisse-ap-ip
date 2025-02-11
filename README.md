@@ -8,8 +8,10 @@ Le protocole Caisse-AP était initialement conçu pour les connexions série et 
 
 Ce projet fournit deux scripts Python 3 :
 
-- un client `caisse-ap-ip-client.py` qui peut simuler un point de vente,
-- un serveur `caisse-ap-ip-server.py` qui peut simuler un terminal de paiement.
+- un client `caisse-ap-ip-client.py` qui simule une caisse enregistreuse envoyant des données de paiement (montant, type de paiement),
+- un serveur `caisse-ap-ip-server.py` qui simule un Terminal de Paiement Électronique (TPE) et la réponse de la banque.
+
+Le client émule le comportement d'une caisse qui envoie une demande de paiement avec un montant spécifique, tandis que le serveur simule à la fois le TPE et la réponse bancaire, permettant de tester différents scénarios (paiement accepté, refusé, timeout, etc.).
 
 # Installation
 
