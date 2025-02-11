@@ -1,38 +1,57 @@
 # Caisse AP over IP protocol server and client
 
-This project provides a server and client for the Caisse AP over IP protocol under the [GPL licence](https://www.gnu.org/licenses/gpl-3.0.html).
+Ce projet fournit un serveur et un client pour le protocole Caisse AP over IP sous la [licence GPL](https://www.gnu.org/licenses/gpl-3.0.html).
 
-The [Caisse AP protocol](https://www.associationdupaiement.fr/protocoles/protocole-caisse/) is a vendor-independent protocol used in France to communicate between a point of sale and a payment terminal. It is implemented by [Ingenico](https://ingenico.com/fr/produits-et-services/terminaux-de-paiement) payment terminals, [Verifone](https://www.verifone.com/) payment terminal and other brands of payment terminals. This protocol is designed by a French association called [Association du paiement](https://www.associationdupaiement.fr/), abbreviated as **AP**. Note that the Caisse-AP protocol is used by Ingenico payment terminals deployed in France, but not by the same model of Ingenico payment terminals deployed in other countries!
+Le [protocole Caisse AP](https://www.associationdupaiement.fr/protocoles/protocole-caisse/) est un protocole indépendant des fournisseurs utilisé en France pour la communication entre un point de vente et un terminal de paiement. Il est implémenté par les terminaux de paiement [Ingenico](https://ingenico.com/fr/produits-et-services/terminaux-de-paiement), [Verifone](https://www.verifone.com/) et d'autres marques. Ce protocole est conçu par une association française appelée [Association du paiement](https://www.associationdupaiement.fr/), abrégée **AP**. Notez que le protocole Caisse-AP est utilisé par les terminaux de paiement Ingenico déployés en France, mais pas par les mêmes modèles déployés dans d'autres pays !
 
-The Caisse-AP protocol was initially written for serial and USB. Since the Caisse AP protocol version 3.x, it also supports IP. When used over IP, the client (point of sale) and the server (payment terminal) exchange simple text data encoded as ASCII over a raw TCP socket.
+Le protocole Caisse-AP était initialement conçu pour les connexions série et USB. Depuis la version 3.x, il prend également en charge l'IP. Lorsqu'il est utilisé via IP, le client (point de vente) et le serveur (terminal de paiement) échangent des données texte simples encodées en ASCII via une socket TCP brute.
 
-This project provides two Python 3 scripts:
+Ce projet fournit deux scripts Python 3 :
 
-- a client `caisse-ap-ip-client.py` that can simulate a point of sale,
-- a server `caisse-ap-ip-server.py` that can simulate a payment terminal.
-
-When developers implement the Caisse-AP IP protocol in a point of sale software, they need a real payment terminal to perform tests and, if they want to test a successful payment transaction, they need to make a real payment with a credit card. With this project, developers can now simulate a payment terminal and don't need a real payment terminal and a real credit card to perform payment transaction tests. This project can also be useful to develop a fully automated test suite that cover the code that implement to Caisse-AP IP protocol.
+- un client `caisse-ap-ip-client.py` qui peut simuler un point de vente,
+- un serveur `caisse-ap-ip-server.py` qui peut simuler un terminal de paiement.
 
 # Installation
 
-The client needs the [iso4217](https://github.com/dahlia/iso4217) Python lib (not needed when using `EUR` only).
+## Installation Classique
+
+Le client nécessite la bibliothèque Python [iso4217](https://github.com/dahlia/iso4217) (non nécessaire si vous utilisez uniquement `EUR`).
 
     pip3 install iso4217
 
-The server requires the [Twisted](https://twisted.org/) Python lib:
+Le serveur nécessite la bibliothèque Python [Twisted](https://twisted.org/) :
 
     pip3 install Twisted
 
-# Usage
+## Installation Docker
 
-The client and server script both have an option `--help` (or `-h`) that display the full list of the available options.
+L'application est également disponible sous forme d'image Docker. Pour l'utiliser :
 
-The server can be configured to simulate successful payment transaction, but also payment failures or timeouts.
+1. Téléchargez l'image depuis DockerHub :
+```bash
+docker pull ralphi2811/caisse-ap-ip:latest
+```
+
+2. Lancez l'application avec Docker Compose :
+```bash
+docker-compose up
+```
+
+L'application sera accessible sur :
+- Interface web : http://localhost:5000
+- Serveur de paiement : port 8888
+
+# Utilisation
+
+Les scripts client et serveur disposent tous deux d'une option `--help` (ou `-h`) qui affiche la liste complète des options disponibles.
+
+Le serveur peut être configuré pour simuler des transactions de paiement réussies, mais aussi des échecs de paiement ou des délais d'attente.
 
 # Tests
 
-To develop this project, we used an **Ingenico Desk/5000** (with application `CONCERT V3` version `8400740115`) with check printer **Ingenico i2200**. We made real card payments and printed real checks.
+Pour développer ce projet, nous avons utilisé un **Ingenico Desk/5000** (avec l'application `CONCERT V3` version `8400740115`) avec l'imprimante de chèques **Ingenico i2200**. Nous avons effectué de vrais paiements par carte et imprimé de vrais chèques.
 
-# Author
+# Auteurs
 
-- Rémi de Lattre
+- Rémi de Lattre - *Développement initial*
+- Raphaël Auberlet - *Dockerisation et interface web*

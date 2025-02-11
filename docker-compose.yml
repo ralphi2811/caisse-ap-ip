@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    image: ralphi2811/caisse-ap-ip:latest
+    ports:
+      - "5000:5000"  # Port pour l'application Flask
+      - "8888:8888"  # Port pour le serveur de paiement
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+    command: python app.py
